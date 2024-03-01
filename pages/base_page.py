@@ -32,14 +32,10 @@ class BasePage:
                           message=f'Элемент не найден по локатору - {[*locator]}').click()
 
     def find_element_by_locator_and_send_keys(self, locator, value, time=10):
-        wait = WebDriverWait(self.driver, time)
-        return wait.until(EC.presence_of_element_located(locator),
-                          message=f'Элемент не найден по локатору - {[*locator]}').send_keys(value)
+        self.find_element_by_locator(locator, time).send_keys(value)
 
     def get_url(self, locator, time=30):
-        wait = WebDriverWait(self.driver, time)
-        wait.until(EC.presence_of_element_located(locator),
-                   message=f'Элемент не найден по локатору - {[*locator]}')
+        self.find_element_by_locator(locator, time)
         current_url = self.driver.current_url
         return current_url
 
@@ -72,7 +68,7 @@ class BasePage:
         self.get_main_page_as_login_user()
 
     def scroll_to_element(self, locator, time=10):
-        element = self.find_element_by_locator(locator)
+        element = self.find_element_by_locator(locator, time)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
         wait = WebDriverWait(self.driver, time)
         return wait.until(EC.element_to_be_clickable(locator),

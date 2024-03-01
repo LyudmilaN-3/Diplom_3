@@ -17,6 +17,4 @@ class OrderPageLocator:
     COUNTER_TODAY = (
         By.XPATH, "//div[last()]/p[@class='OrderFeed_number__2MbrQ text text_type_digits-large']"
     )  # Счётчик "Выполнено за сегодня
-    SECTION_IN_WORK = (
-        By.XPATH, "//main/div/div/div/div/ul[2]/li[@class='text text_type_main-small']"
-    )  # Раздел "В работе"
+    SECTION_IN_WORK = (By.XPATH, "//ul[contains(@class, 'ListReady')]/li")  # Раздел "В работе"

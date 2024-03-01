@@ -53,5 +53,6 @@ class LoginPage(BasePage):
         # Кликнуть по кнопке "Восстановить"
         self.get_recov_password_page_by_button()
 
+    @allure.step('Проверить отображение кнопки "Сохранить"')
     def get_button_save(self):
         return self.find_element_by_locator(LoginPL.BUTTON_SAVE)
