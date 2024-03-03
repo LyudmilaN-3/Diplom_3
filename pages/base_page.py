@@ -45,28 +45,6 @@ class BasePage:
         action_chains = ActionChains(self.driver)
         action_chains.drag_and_drop(element, target).perform()
 
-    @allure.step('Перейти на страницу входа в аккаунт по кнопке на хедере')
-    def get_login_page_by_button_on_header(self, locator):
-        self.find_element_by_locator_and_click(locator)
-
-    @allure.step('Заполнить поля ввода "Почта" и "Пароль" для входа в аккаунт')
-    def fill_email_password_fields(self, locator1, locator2, email, password):
-        self.find_element_by_locator_and_send_keys(locator1, email)
-        self.find_element_by_locator_and_send_keys(locator2, password)
-
-    @allure.step('Перейти на главную страницу по кнопке "Войти" на странице входа в аккаунт')
-    def get_main_page_as_login_user(self, locator):
-        self.find_element_by_locator_and_click(locator)
-
-    @allure.step('Зайти на сайт под залогиненным пользователем')
-    def get_site_as_login_user(self, email, password):
-        # Перейти на страницу входа в аккаунт по кнопке на хедере
-        self.get_login_page_by_button_on_header()
-        # Заполнить поля ввода "Почта" и "Пароль" для входа в аккаунт
-        self.fill_email_password_fields(email, password)
-        # Перейти на главную страницу по кнопке "Войти"
-        self.get_main_page_as_login_user()
-
     def scroll_to_element(self, locator, time=10):
         element = self.find_element_by_locator(locator, time)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)

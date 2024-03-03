@@ -1,5 +1,6 @@
 import allure
 
+from ..constants import Constant
 from ..locators.login_page_locators import LoginPageLocator as LoginPL
 from ..locators.main_page_locators import MainPageLocator as MainPL
 from ..locators.order_page_locators import OrderPageLocator as OrderPL
@@ -48,19 +49,27 @@ class MainPage(BasePage):
         text = self.find_element_by_locator(MainPL.FIRST_INGREDIENT_COUNTER).text
         return text
 
+    @allure.step('Перейти на страницу входа в аккаунт по кнопке на хедере')
+    def get_login_page_by_button_on_header(self):
+        self.find_element_by_locator_and_click(MainPL.BUTTON_ACC)
+
+    @allure.step('Заполнить поля ввода "Почта" и "Пароль" для входа в аккаунт')
+    def fill_email_password_fields(self, email=Constant.TEST_EMAIL, password=Constant.TEST_PASSWORD):
+        self.find_element_by_locator_and_send_keys(LoginPL.EMAIL_FIELD, email)
+        self.find_element_by_locator_and_send_keys(LoginPL.PASSWORD_FIELD, password)
+
+    @allure.step('Перейти на главную страницу по кнопке "Войти" на странице входа в аккаунт')
+    def get_main_page_as_login_user(self):
+        self.find_element_by_locator_and_click(LoginPL.BUTTON_INTO)
+
     @allure.step('Зайти на сайт под залогиненным пользователем')
-    def get_site_as_login_user(
-            self,
-            email,
-            password,
-            locator1=MainPL.BUTTON_ACC,
-            locator2=LoginPL.EMAIL_FIELD,
-            locator3=LoginPL.PASSWORD_FIELD,
-            locator4=LoginPL.BUTTON_INTO
-    ):
-        self.get_login_page_by_button_on_header(locator1)
-        self.fill_email_password_fields(locator2, locator3, email, password)
-        self.get_main_page_as_login_user(locator4)
+    def get_site_as_login_user(self):
+        # Перейти на страницу входа в аккаунт по кнопке на хедере
+        self.get_login_page_by_button_on_header()
+        # Заполнить поля ввода "Почта" и "Пароль" для входа в аккаунт
+        self.fill_email_password_fields()
+        # Перейти на главную страницу по кнопке "Войти"
+        self.get_main_page_as_login_user()
 
     @allure.step('Нажать на кнопку "Оформить заказ"')
     def click_button_to_get_order(self):

@@ -24,17 +24,12 @@ class TestOrderPage:
         assert Constant.PART_CLASS_TEXT in class_text_after
 
     @allure.title('Проверка отображения заказов пользователя в "Истории заказов"')
-    def test_get_user_order_in_order_page(
-            self,
-            driver,
-            email=Constant.TEST_EMAIL,
-            password=Constant.TEST_PASSWORD
-    ):
+    def test_get_user_order_in_order_page(self, driver):
         order_page = OrderPage(driver)
         # Открыть главную страницу сайта
         order_page.go_to_site()
         # Войти в аккаунт
-        order_page.get_site_as_login_user(email, password)
+        order_page.get_site_as_login_user()
         # Перейти в личный кабинет
         order_page.get_profile_page()
         # Перейти в раздел "История заказов" личного кабинета
@@ -51,8 +46,6 @@ class TestOrderPage:
     def test_increase_counter_orders_all_time(
             self,
             driver,
-            email=Constant.TEST_EMAIL,
-            password=Constant.TEST_PASSWORD,
             element=MainPL.FIRST_INGREDIENT,
             target=MainPL.PLACE_ORDER
     ):
@@ -64,7 +57,7 @@ class TestOrderPage:
         # Получить количество заказов за всё время
         count_before = order_page.get_count_orders_all_time()
         # Войти в аккаунт
-        order_page.get_site_as_login_user(email, password)
+        order_page.get_site_as_login_user()
         # Сделать заказ
         order_page.get_order(element, target)
         # Закрыть всплывающее окно
@@ -80,8 +73,6 @@ class TestOrderPage:
     def test_increase_counter_orders_today(
             self,
             driver,
-            email=Constant.TEST_EMAIL,
-            password=Constant.TEST_PASSWORD,
             element=MainPL.FIRST_INGREDIENT,
             target=MainPL.PLACE_ORDER
     ):
@@ -93,7 +84,7 @@ class TestOrderPage:
         # Получить количество заказов за сегодня
         count_before = order_page.get_count_orders_today()
         # Войти в аккаунт
-        order_page.get_site_as_login_user(email, password)
+        order_page.get_site_as_login_user()
         # Сделать заказ
         order_page.get_order(element, target)
         # Закрыть всплывающее окно
@@ -109,8 +100,6 @@ class TestOrderPage:
     def test_get_new_order_in_section_in_work(
             self,
             driver,
-            email=Constant.TEST_EMAIL,
-            password=Constant.TEST_PASSWORD,
             element=MainPL.FIRST_INGREDIENT,
             target=MainPL.PLACE_ORDER
     ):
@@ -118,7 +107,7 @@ class TestOrderPage:
         # Открыть главную страницу сайта
         order_page.go_to_site()
         # Войти в аккаунт
-        order_page.get_site_as_login_user(email, password)
+        order_page.get_site_as_login_user()
         # Сделать заказ
         order_page.get_order(element, target)
         # Получить номер заказа

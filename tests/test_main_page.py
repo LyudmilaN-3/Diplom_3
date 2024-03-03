@@ -87,15 +87,14 @@ class TestMainPage:
     def test_get_order_by_login_user(
             self,
             driver,
-            email=Constant.TEST_EMAIL,
-            password=Constant.TEST_PASSWORD,
             element=MainPL.FIRST_INGREDIENT,
-            target=MainPL.PLACE_ORDER):
+            target=MainPL.PLACE_ORDER
+    ):
         main_page = MainPage(driver)
         # Открыть главную страницу сайта
         main_page.go_to_site()
         # Войти в аккаунт
-        main_page.get_site_as_login_user(email, password)
+        main_page.get_site_as_login_user()
         # Перетащить ингредиент в блок заказа
         main_page.drag_and_drop_element(element, target)
         # Нажать на кнопку "Оформить заказ"
